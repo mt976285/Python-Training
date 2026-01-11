@@ -1,0 +1,6 @@
+{
+    "NullPointerException": "https://confluence.company.com/runbook/APP-07",
+    "TimeoutException": "https://confluence.company.com/runbook/KAFKA-04",
+    "DBConnection": "https://confluence.company.com/runbook/DB-03"
+  }
+  

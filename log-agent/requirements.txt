@@ -1,0 +1,9 @@
+openai
+python-dotenv
+tiktoken
+langchain-core
+langchain
+langchain_openai
+langgraph
+python-dotenv
+uv
