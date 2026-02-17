@@ -1,0 +1,81 @@
+{
+  "tasks": {
+    "CLOSE_ACCOUNT": {
+      "description": "Close a customer account",
+      "frequency_rank": 1,
+      "aliases": ["terminate", "close", "shut down", "end account"],
+      "required_fields": {
+        "account_number": {
+          "type": "string",
+          "prompt": "Please provide the account number."
+        },
+        "account_type": {
+          "type": "enum",
+          "values": ["single", "joint"],
+          "prompt": "Is the account single or joint?"
+        },
+        "closure_reason": {
+          "type": "enum",
+          "values": ["deceased", "fraud", "customer_request"],
+          "prompt": "What is the reason for closing the account?"
+        }
+      },
+      "conditional_fields": [
+        {
+          "when": {
+            "AND": [
+              {
+                "field": "closure_reason",
+                "operator": "IN",
+                "value": ["deceased"]
+              },
+              {
+                "field": "account_type",
+                "operator": "EQUALS",
+                "value": "joint"
+              }
+            ]
+          },
+          "then": {
+            "surviving_holder_name": {
+              "type": "string",
+              "prompt": "Please provide the surviving account holder's name."
+            },
+            "surviving_holder_id": {
+              "type": "string",
+              "prompt": "Please provide the surviving holder's identification number."
+            }
+          }
+        },
+        {
+          "when": {
+            "field": "closure_reason",
+            "operator": "IN",
+            "value": ["deceased"]
+          },
+          "then": {
+            "death_certificate_number": {
+              "type": "string",
+              "prompt": "Please provide the death certificate number."
+            }
+          }
+        }
+      ]
+    },
+    "INCREASE_LIMIT": {
+      "description": "Increase account limit",
+      "frequency_rank": 2,
+      "aliases": ["raise limit", "increase credit", "boost limit"],
+      "required_fields": {
+        "account_number": {
+          "type": "string",
+          "prompt": "Please provide the account number."
+        },
+        "requested_limit": {
+          "type": "number",
+          "prompt": "What is the new requested limit?"
+        }
+      }
+    }
+  }
+}

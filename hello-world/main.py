@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+import requests
 from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_ollama import ChatOllama
@@ -39,6 +40,19 @@ Musk's political activities, views, and statements have made him a polarizing fi
     response = chain.invoke(input={"information": information})
     print(response.content)
 
-
+def ollama_test():
+    print(requests.get("http://localhost:11434").content)
+    OLLAMA_BASE_URL = "http://localhost:11434"
+    llm = ChatOllama(base_url=OLLAMA_BASE_URL, model="gemma3:270m", temperature=0)
+    messages = [
+        ("system", "You are a helpful translator. Translate the user sentence to French."),
+        ("human", "I love programming."),
+    ]
+    response = llm.invoke(messages)
+    print(response.content)
+    #llm = ChatOllama(temperature=0, model="gemma3:270m")
+    #response = llm.invoke(messages=[{"role": "user", "content": "What is 2+2?"}])
+    #print(response.content)
 if __name__ == "__main__":
-    main()
+    #main()
+    ollama_test()
